@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "symfonyk8stestcharts.fullname" . }}
+  labels:
+    {{- include "symfonyk8stestcharts.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "symfonyk8stestcharts.selectorLabels" . | nindent 4 }}
