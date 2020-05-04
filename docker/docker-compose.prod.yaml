@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  php:
+      build:
+        context: ../
+        dockerfile: docker/app/Dockerfile.prod
+      env_file:
+        - app/.env
+      ports:
+      - '9090:80'
+#  nginx:
