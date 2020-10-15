@@ -1,0 +1,24 @@
+version: '3.7'
+
+services:
+    nginx:
+        build:
+            args:
+                VERSION: $NGINX_VERSION
+            context: ../
+            dockerfile: ./docker2/nginx/Dockerfile
+            target: prod
+        depends_on:
+            - php-fpm
+        ports:
+            - 8000:80
+    php-fpm:
+        build:
+            args:
+                VERSION: $PHP_VERSION
+            context: ../
+            dockerfile: ./docker2/php-fpm/Dockerfile
+            target: prod
+#        volumes:
+#            - ../:/app
+        command: sh -c 'php-fpm -e'
