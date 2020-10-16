@@ -6,7 +6,7 @@ FROM php:${VERSION}-fpm-alpine AS dev
 ## Install system dependencies
 RUN apk update && \
     apk add --no-cache --virtual dev-deps git autoconf gcc g++ make && \
-    apk add --no-cache zlib-dev libzip-dev
+    apk add --no-cache zlib-dev libzip-dev gettext
 
 ## Install php extensions
 RUN pecl install xdebug && \
@@ -52,6 +52,6 @@ RUN composer install --no-dev --no-interaction --optimize-autoloader
 RUN rm /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 ## Cleanup
-RUN apk del dev-deps && \
+RUN apk del dev-deps gettext && \
     composer global remove hirak/prestissimo && \
     rm /usr/local/bin/composer

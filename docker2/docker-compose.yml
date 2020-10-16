@@ -7,7 +7,7 @@ services:
                 VERSION: $NGINX_VERSION
             context: ../
             dockerfile: ./docker2/nginx/Dockerfile
-            target: prod
+            target: dev
         depends_on:
             - php-fpm
         ports:
@@ -18,7 +18,10 @@ services:
                 VERSION: $PHP_VERSION
             context: ../
             dockerfile: ./docker2/php-fpm/Dockerfile
-            target: prod
-#        volumes:
-#            - ../:/app
-        command: sh -c 'php-fpm -e'
+            target: dev
+        env_file:
+            -   "php-fpm/.env"
+        volumes:
+            - ../:/app
+            - './php-fpm/99-xdebug.template:/tmp/99-xdebug.template'
+        command: sh -c 'envsubst < /tmp/99-xdebug.template > /usr/local/etc/php/conf.d/99-xdebug.ini && php-fpm'

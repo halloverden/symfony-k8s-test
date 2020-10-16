@@ -17,4 +17,4 @@ phpfpm:
     image: "fagforbundet.azurecr.io/symfony-k8s-test-php-fpm"
     port: 9000
 
-imageTag: "1.2"
+imageTag: "1.5"
