@@ -6,15 +6,19 @@ resources:
         cpu: 0.25
         memory: 256Mi
 
+ingress:
+    name: k8s-test
+    match: Host(`tom-test-01.fagforbundet.dev`)
+    certResolver: letsencrypt
+    entryPoints:
+        - websecure
+
 nginx:
-    name: "nginx"
+    name: "k8s-test-nginx"
     image: "fagforbundet.azurecr.io/symfony-k8s-test-nginx"
-    host: k8s-test.fagforbundet.no
     port: 80
 
 phpfpm:
-    name: "php-fpm"
+    name: "k8s-test-php-fpm"
     image: "fagforbundet.azurecr.io/symfony-k8s-test-php-fpm"
     port: 9000
-
-imageTag: "1.5"

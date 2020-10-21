@@ -1,15 +1,21 @@
 {{- define "ingress.template" -}}
-apiVersion: networking.k8s.io/v1beta1
-kind: Ingress
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
 metadata:
-  name: {{ .service.name | quote }}
+  name: {{ .ingress.name | quote }}
 spec:
-  rules:
-    - host: {{ .service.host | quote }}
-      http:
-        paths:
-          - path: /
-            backend:
-              serviceName: {{ .service.name | quote }}
-              servicePort: {{ .service.port }}
+  entryPoints:
+  {{- range $entryPoint := .ingress.entryPoints}}
+    - {{ $entryPoint }}
+  {{- end }}
+  routes:
+  - match: {{ .ingress.match }}
+    kind: Rule
+    services:
+    - name: {{ .service.name | quote }}
+      port: {{ .service.port }}
+  {{- if (.ingress.certResolver) }}
+  tls:
+    certResolver: {{ .ingress.certResolver }}
+  {{- end }}
 {{- end -}}
