@@ -34,6 +34,7 @@ jobs:
 
             -   name: Build docker images
                 run: |
+                    cd $GITHUB_WORKSPACE
                     docker build -f docker/nginx/Dockerfile --build-arg VERSION=1.18 -t fagforbundet.azurecr.io/symfony-k8s-test-nginx:${{ github.sha }} --target prod .
                     docker build -f docker/php-fpm/Dockerfile --build-arg VERSION=7.4 -t fagforbundet.azurecr.io/symfony-k8s-test-php-fpm:${{ github.sha }} --target prod .
 
