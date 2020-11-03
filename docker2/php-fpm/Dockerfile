@@ -22,8 +22,7 @@ WORKDIR /app
 ## Install composer
 RUN wget https://getcomposer.org/installer && \
     php installer --install-dir=/usr/local/bin/ --filename=composer && \
-    rm installer && \
-    composer global require hirak/prestissimo
+    rm installer
 
 # Test image
 FROM dev AS test
@@ -53,5 +52,4 @@ RUN rm /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 
 ## Cleanup
 RUN apk del dev-deps gettext && \
-    composer global remove hirak/prestissimo && \
     rm /usr/local/bin/composer
