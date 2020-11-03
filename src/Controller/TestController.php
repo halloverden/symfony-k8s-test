@@ -18,7 +18,7 @@ class TestController extends AbstractController {
    * @Route("/test", name="testxd")
    */
   public function testing() {
-    return new Response('ok');
+    return new Response('ok version 1');
   }
 
 }
