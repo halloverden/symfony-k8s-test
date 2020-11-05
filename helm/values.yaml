@@ -22,3 +22,8 @@ phpfpm:
     name: "k8s-test-php-fpm"
     image: "fagforbundet.azurecr.io/symfony-k8s-test-php-fpm"
     port: 9000
+    env:
+        secret:
+            SYMFONY_DECRYPTION_SECRET:
+                name: 'k8s-test-decryption-key'
+                key: 'decryption-key'

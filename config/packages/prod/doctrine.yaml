@@ -1,4 +1,7 @@
 doctrine:
+    dbal:
+        options:
+            !php/const:PDO::MYSQL_ATTR_SSL_CA: '%app.database_ca%'
     orm:
         auto_generate_proxy_classes: false
         metadata_cache_driver:
