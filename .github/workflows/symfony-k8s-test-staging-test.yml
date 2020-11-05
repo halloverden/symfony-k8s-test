@@ -41,7 +41,7 @@ jobs:
             -   name: Build docker images
                 run: |
                     docker build -f docker2/nginx/Dockerfile --build-arg VERSION=1.18 -t fagforbundet.azurecr.io/symfony-k8s-test-nginx:${{ github.sha }} --target prod .
-                    docker build -f docker2/php-fpm/Dockerfile --build-arg VERSION=7.4 -t fagforbundet.azurecr.io/symfony-k8s-test-php-fpm:${{ github.sha }} --target prod .
+                    docker build -f docker2/php-fpm/Dockerfile --build-arg VERSION=7.4 --build-arg SYMFONY_DECRYPTION_SECRET=${{ secrets.SYMFONY_DECRYPTION_SECRET }} -t fagforbundet.azurecr.io/symfony-k8s-test-php-fpm:${{ github.sha }} --target prod .
 
             -   name: Push docker image to registry.
                 run: |

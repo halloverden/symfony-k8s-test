@@ -40,8 +40,10 @@ RUN chown -R www-data:www-data .
 
 # Prod image
 FROM test AS prod
+ARG SYMFONY_DECRYPTION_SECRET
 
 ENV APP_ENV=prod
+ENV SYMFONY_DECRYPTION_SECRET=${SYMFONY_DECRYPTION_SECRET}
 WORKDIR /app
 
 ## Remove dev dependencies
